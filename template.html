@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div id="app">
+		<h1>{{ message }}</h1>
+		<button v-on:click="reverseMessage">Reverse Message</button>
+
+		<div v-for="plan in plans">
+			<!-- 制定当前plan对应到template里的plan -->
+			<plan :plan="plan"></plan>
+		</div>
+
+		<h5>{{ fullMessage }}</h5>
+
+	</div>
+
+
+
+	<template id="plan-template">
+		<div>
+			<span>{{ plan.name }}</span> 
+			<span>{{ plan.price }}/month</span>
+		</div>
+	</template>
+
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.min.js"></script>
+
+
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data: {
+				message:'Hello World',
+				plans: [
+					{ name: 'Pro', price: 500},
+					{ name: 'Medium', price: 40},
+					{ name: 'Free', price: 0},
+				]
+			},
+			methods: {
+			    reverseMessage: function () {
+					this.message = this.message.split('').reverse().join('')
+    			}
+			},
+			// computed property
+			computed: {
+				// 这里的property在调用的其他property更新的时候会自动更新
+				fullMessage: function(){
+					return this.message + "  " +"I am Duan"
+				}
+			},
+			// 自定义组件
+			components: {
+				plan: {
+					template: '#plan-template',
+					// 每一个自定义组件里可以使用的元素必须是explicit的
+					props:['plan']
+				}
+			}
+
+		});
+	</script>
+
+
+
+</body>
+</html>
+
+
