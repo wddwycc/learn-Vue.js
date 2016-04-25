@@ -7,7 +7,8 @@
 
 	<div id="app">
 		<h1>{{ message }}</h1>
-		<button v-on:click="reverseMessage">Reverse Message</button>
+		<!-- <button v-on:click="reverseMessage">Reverse Message</button> -->
+		<button @click="reverseMessage">Reverse Message</button>
 
 		<div v-for="plan in plans">
 			<!-- 制定当前plan对应到template里的plan -->
@@ -57,6 +58,11 @@
 			components: {
 				plan: {
 					template: '#plan-template',
+					data: function(){
+						return {
+							active: false
+						};
+					},
 					// 每一个自定义组件里可以使用的元素必须是explicit的
 					props:['plan']
 				}
